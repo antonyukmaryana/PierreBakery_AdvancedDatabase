@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@using System.Security.Claims
+
+@model IEnumerable<Bakery.Models.Flavor>
+
+<h2>Here is your list of flavors, @User.Identity.Name</h2>
+<hr />
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var listFlavor in Model)
+        {
+            <li>@Html.DisplayFor(modelItem => listFlavor.Description)</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No flavors have been added yet!</p>
+}
+
+@Html.ActionLink("Create new", "Create")
