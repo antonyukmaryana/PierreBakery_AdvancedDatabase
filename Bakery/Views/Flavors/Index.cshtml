@@ -13,7 +13,7 @@
     <ul>
         @foreach (var listFlavor in Model)
         {
-            <li>@Html.DisplayFor(modelItem => listFlavor.Description)</li>
+            <li>@Html.ActionLink($"{listFlavor.Description}", "Details", new { id = listFlavor.FlavorId })</li>
         }
     </ul>
 }

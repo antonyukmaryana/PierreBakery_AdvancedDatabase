@@ -51,9 +51,34 @@ namespace Bakery.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
+        {
+            var currentUser = await GetApplicationUser();
+            return View(_db.Flavors.FirstOrDefault(treat => treat.FlavorId == id && treat.User.Id == currentUser.Id));
+        }
+
+        public async Task<ActionResult> Delete(int id)
+        {
+            return await Edit(id);
+        }
+
+        public IActionResult DeleteTreat()
         {
             throw new System.NotImplementedException();
+        }
+
+        public IActionResult AddTreat(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IActionResult Details(int id)
+        {
+            var thisTreat = _db.Flavors
+                .Include(treat => treat.Treats)
+                .ThenInclude(join => join.Treat)
+                .FirstOrDefault(treat => treat.FlavorId == id);
+            return View(thisTreat);
         }
     }
 }
