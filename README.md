@@ -1,10 +1,11 @@
-# PierreBakery_AdvancedDatabase
-🎂 🍰 🍪C# application with user authentication and a many-to-many relationship. 
+
+🎂 🍰 🍪 
 **Pierre' Bakery**
 
 
 
-A C# MVC application for a bakery with user authentication and many to many database relationships.8/16/19. *By Maryana Antonyuk*
+A C# MVC application for a bakery with user authentication and many to many database relationships.8/16/19. 
+*By Maryana Antonyuk*
 
 **Description**
 
@@ -22,23 +23,23 @@ C# MVC application with user authentication and a many-to-many relationship. Her
 
 To run this program, you have to have IDE, ex VisualStudio (I used Rider(JetBrainer)) or Terminal.
 
-**For Terminal:**
+
 
 1. Clone this repository:
 
-Open the App Settings file (appsettings.json) and ensure that the MySQL username and password match your MySQL credentials.
+2.Open the App Settings file (appsettings.json) and ensure that the MySQL username and password match your MySQL credentials.
 
-Log onto MySQL:
+3.Log onto MySQL:
 
 $ mysql -u USERNAME -p PASSWORD
-Navigate to the production folder (HairSalon.Solution/HairSalon)
+4.Navigate to the production folder 
 
-Restore dependencies, update your local database, and run the application
+5.Restore dependencies, update your local database, and run the application
 
 $ dotnet restore
 $ dotnet ef database update
 $ dotnet run
-On a Web browser (Chrome recommended), navigate to http://localhost:5000
+6.On a Web browser (Chrome recommended), navigate to http://localhost:5000
 
 
 You will have access to all files. Enjoy!
