@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -51,25 +52,41 @@ namespace Bakery.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             var currentUser = await GetApplicationUser();
             return View(_db.Flavors.FirstOrDefault(treat => treat.FlavorId == id && treat.User.Id == currentUser.Id));
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public IActionResult DeleteTreat(int joinId, int flavorId)
         {
-            return await Edit(id);
+            var treatFlavor = _db.TreatFlavor.FirstOrDefault(tf => tf.TreatFlavorId == joinId);
+            _db.TreatFlavor.Remove(treatFlavor);
+            _db.SaveChanges();
+            return RedirectToAction("Details", new {id = flavorId});
+//            return RedirectToAction("Index");
         }
 
-        public IActionResult DeleteTreat()
+        public async Task<IActionResult> AddTreat(int id)
         {
-            throw new System.NotImplementedException();
+            var currentUser = await GetApplicationUser();
+            var map = new Hashtable();
+            map["flavor"] =
+                _db.Flavors.FirstOrDefault(treat => treat.FlavorId == id && treat.User.Id == currentUser.Id);
+            map["treats"] = _db.Treats.Where(treat => treat.User.Id == currentUser.Id).ToList();
+            return View(map);
         }
 
-        public IActionResult AddTreat(int id)
+        public IActionResult AddTreatToFlavor(int flavorId, int treatId)
         {
-            throw new System.NotImplementedException();
+            var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == treatId);
+            var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == flavorId);
+            var treatFlavor = new TreatFlavor();
+            treatFlavor.Flavor = thisFlavor;
+            treatFlavor.Treat = thisTreat;
+            _db.TreatFlavor.Add(treatFlavor);
+            _db.SaveChanges();
+            return RedirectToAction("Details", new {id = flavorId});
         }
 
         public IActionResult Details(int id)
